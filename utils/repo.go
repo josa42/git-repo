@@ -13,6 +13,11 @@ type Repo struct {
 	name   string
 }
 
+var hosterExps = []string{
+	`^git@(github).com:([^/]+)/([^/]+).git$`,
+	`^https://(github).com/([^/]+)/([^/]+).git`,
+}
+
 // GetRepo :
 func GetRepo() Repo {
 
@@ -22,12 +27,17 @@ func GetRepo() Repo {
 	remote := remotes["origin"]
 
 	if remote.Name != "" {
-		re, _ := regexp.Compile(`^git@github.com:([^/]+)/([^/]+).git$`)
-		result := re.FindStringSubmatch(remote.Fetch)
-		if result != nil {
-			repo.hoster = "github"
-			repo.user = result[1]
-			repo.name = result[2]
+
+		for _, exp := range hosterExps {
+			re, _ := regexp.Compile(exp)
+			result := re.FindStringSubmatch(remote.Fetch)
+			if result != nil {
+				repo.hoster = result[1]
+				repo.user = result[2]
+				repo.name = result[3]
+
+				return repo
+			}
 		}
 	}
 
