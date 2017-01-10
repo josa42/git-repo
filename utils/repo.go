@@ -9,13 +9,15 @@ import (
 // Repo :
 type Repo struct {
 	hoster string
-	user   string
+	owner  string
 	name   string
 }
 
 var hosterExps = []string{
 	`^git@(github).com:([^/]+)/([^/]+).git$`,
 	`^https://(github).com/([^/]+)/([^/]+).git`,
+	`^git@(bitbucket).org:([^/]+)/([^/]+).git$`,
+	`^https://([a-zA-Z0-9]+)@(bitbucket).org/([^/]+)/([^/]+).git`,
 }
 
 // GetRepo :
@@ -33,7 +35,7 @@ func GetRepo() Repo {
 			result := re.FindStringSubmatch(remote.Fetch)
 			if result != nil {
 				repo.hoster = result[1]
-				repo.user = result[2]
+				repo.owner = result[2]
 				repo.name = result[3]
 
 				return repo
@@ -46,23 +48,34 @@ func GetRepo() Repo {
 
 // URL :
 func (repo *Repo) URL(urlType string) string {
-	url := ""
 
 	switch repo.hoster {
 	case "github":
-
 		switch urlType {
 		case "issues":
-			return "https://github.com/" + repo.user + "/" + repo.name + "/issues"
+			return "https://github.com/" + repo.owner + "/" + repo.name + "/issues"
 		case "prs":
-			return "https://github.com/" + repo.user + "/" + repo.name + "/pulls"
+			return "https://github.com/" + repo.owner + "/" + repo.name + "/pulls"
 		case "commits":
-			return "https://github.com/" + repo.user + "/" + repo.name + "/commits"
+			return "https://github.com/" + repo.owner + "/" + repo.name + "/commits"
 		case "home":
 		default:
-			return "https://github.com/" + repo.user + "/" + repo.name
+			return "https://github.com/" + repo.owner + "/" + repo.name
+		}
+
+	case "bitbucket":
+		switch urlType {
+		case "issues":
+			return "https://bitbucket.org/" + repo.owner + "/" + repo.name + "/issues?status=new&status=open"
+		case "prs":
+			return "https://bitbucket.org/" + repo.owner + "/" + repo.name + "/pull-requests/"
+		case "commits":
+			return "https://bitbucket.org/" + repo.owner + "/" + repo.name + "/commits/all"
+		case "home":
+		default:
+			return "https://bitbucket.org/" + repo.owner + "/" + repo.name
 		}
 	}
 
-	return url
+	return ""
 }
