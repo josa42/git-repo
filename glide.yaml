@@ -1,0 +1,9 @@
+package: github.com/josa42/git-repo
+import:
+- package: github.com/josa42/go-stringutils
+  version: 0.1.0
+- package: github.com/josa42/go-gitutils
+  version: 0.2.0
+- package: github.com/docopt/docopt-go
+  version: 0.6.2
+- package: github.com/skratchdot/open-golang
