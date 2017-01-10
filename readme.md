@@ -30,3 +30,7 @@ Options:
   -h --help          Show this screen.
   --version          Show version.
 ```
+
+## License
+
+MIT (See [license.md](license.md))
