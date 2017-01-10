@@ -59,7 +59,6 @@ func (repo *Repo) URL(urlType string) string {
 		case "commits":
 			return "https://github.com/" + repo.owner + "/" + repo.name + "/commits"
 		case "home":
-		default:
 			return "https://github.com/" + repo.owner + "/" + repo.name
 		}
 
@@ -72,7 +71,6 @@ func (repo *Repo) URL(urlType string) string {
 		case "commits":
 			return "https://bitbucket.org/" + repo.owner + "/" + repo.name + "/commits/all"
 		case "home":
-		default:
 			return "https://bitbucket.org/" + repo.owner + "/" + repo.name
 		}
 	}
