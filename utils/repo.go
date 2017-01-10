@@ -35,11 +35,24 @@ func GetRepo() Repo {
 }
 
 // URL :
-func (repo *Repo) URL() string {
+func (repo *Repo) URL(urlType string) string {
+	url := ""
+
 	switch repo.hoster {
 	case "github":
-		return "https://github.com/" + repo.user + "/" + repo.name
+
+		switch urlType {
+		case "issues":
+			return "https://github.com/" + repo.user + "/" + repo.name + "/issues"
+		case "prs":
+			return "https://github.com/" + repo.user + "/" + repo.name + "/pulls"
+		case "commits":
+			return "https://github.com/" + repo.user + "/" + repo.name + "/commits"
+		case "home":
+		default:
+			return "https://github.com/" + repo.user + "/" + repo.name
+		}
 	}
 
-	return ""
+	return url
 }

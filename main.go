@@ -8,7 +8,7 @@ import (
 )
 
 func openRepo(repo utils.Repo, urlType string) {
-	url := repo.URL()
+	url := repo.URL(urlType)
 	if url != "" {
 		open.Run(url)
 	}
@@ -17,7 +17,10 @@ func openRepo(repo utils.Repo, urlType string) {
 func main() {
 	usage := stringutils.TrimLeadingTabs(`
 		Usage:
-		  git-repo home [--issues|--code|--prs]
+		  git-repo home
+		  git-repo commits
+		  git-repo issues
+		  git-repo prs
 
 		Options:
 		  -h --help          Show this screen.
@@ -26,10 +29,18 @@ func main() {
 
 	arguments, _ := docopt.Parse(usage, nil, true, "Git Release 0.1.0", false)
 
-	homeCommand := arguments["home"] == true
 	repo := utils.GetRepo()
 
-	if homeCommand {
-		openRepo(repo, "home")
+	urlType := ""
+	urlTypes := []string{"home", "issues", "prs", "commits"}
+
+	for _, key := range urlTypes {
+		if arguments[key] == true {
+			urlType = key
+		}
+	}
+
+	if urlType != "" {
+		openRepo(repo, urlType)
 	}
 }
