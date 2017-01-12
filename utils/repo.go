@@ -47,33 +47,53 @@ func GetRepo() Repo {
 }
 
 // URL :
-func (repo *Repo) URL(urlType string) string {
+func (repo *Repo) URL(urlType string, arguments map[string]interface{}) string {
 
 	switch repo.hoster {
 	case "github":
+		base := "https://github.com/" + repo.owner + "/" + repo.name
 		switch urlType {
 		case "issues":
-			return "https://github.com/" + repo.owner + "/" + repo.name + "/issues"
+			return base + "/issues"
 		case "prs":
-			return "https://github.com/" + repo.owner + "/" + repo.name + "/pulls"
+			return base + "/pulls"
 		case "commits":
-			return "https://github.com/" + repo.owner + "/" + repo.name + "/commits"
+			return base + "/commits"
+		case "compare":
+			revA, revB := compareRevisions(arguments)
+			return base + "/compare/" + revA + "..." + revB
 		case "home":
-			return "https://github.com/" + repo.owner + "/" + repo.name
+			return base
 		}
 
 	case "bitbucket":
+		base := "https://bitbucket.org/" + repo.owner + "/" + repo.name
 		switch urlType {
 		case "issues":
-			return "https://bitbucket.org/" + repo.owner + "/" + repo.name + "/issues?status=new&status=open"
+			return base + "/issues?status=new&status=open"
 		case "prs":
-			return "https://bitbucket.org/" + repo.owner + "/" + repo.name + "/pull-requests/"
+			return base + "/pull-requests/"
 		case "commits":
-			return "https://bitbucket.org/" + repo.owner + "/" + repo.name + "/commits/all"
+			return base + "/commits/all"
+		case "compare":
+			revA, revB := compareRevisions(arguments)
+			return base + "/branches/compare/" + revB + ".." + revA + "#diff"
 		case "home":
-			return "https://bitbucket.org/" + repo.owner + "/" + repo.name
+			return base
 		}
 	}
 
 	return ""
+}
+
+func compareRevisions(arguments map[string]interface{}) (string, string) {
+
+	revA := arguments["<older-revision>"]
+	revB := arguments["<newer-revision>"]
+
+	if revB == nil {
+		revB, _ = git.Exec("rev-parse", "--verify", "HEAD")
+	}
+
+	return revA.(string), revB.(string)
 }

@@ -7,8 +7,8 @@ import (
 	"github.com/skratchdot/open-golang/open"
 )
 
-func openRepo(repo utils.Repo, urlType string) {
-	url := repo.URL(urlType)
+func openRepo(repo utils.Repo, urlType string, arguments map[string]interface{}) {
+	url := repo.URL(urlType, arguments)
 	if url != "" {
 		open.Run(url)
 	}
@@ -21,6 +21,7 @@ func main() {
 		  git-repo commits
 		  git-repo issues
 		  git-repo prs
+		  git-repo compare <older-revision> [<newer-revision>]
 
 		Options:
 		  -h --help          Show this screen.
@@ -32,7 +33,7 @@ func main() {
 	repo := utils.GetRepo()
 
 	urlType := ""
-	urlTypes := []string{"home", "issues", "prs", "commits"}
+	urlTypes := []string{"home", "issues", "prs", "commits", "compare"}
 
 	for _, key := range urlTypes {
 		if arguments[key] == true {
@@ -41,6 +42,6 @@ func main() {
 	}
 
 	if urlType != "" {
-		openRepo(repo, urlType)
+		openRepo(repo, urlType, arguments)
 	}
 }
