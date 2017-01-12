@@ -21,6 +21,7 @@ func main() {
 		  git-repo commits
 		  git-repo issues
 		  git-repo prs
+		  git-repo pr
 		  git-repo compare <older-revision> [<newer-revision>]
 
 		Options:
@@ -33,7 +34,7 @@ func main() {
 	repo := utils.GetRepo()
 
 	urlType := ""
-	urlTypes := []string{"home", "issues", "prs", "commits", "compare"}
+	urlTypes := []string{"home", "issues", "prs", "pr", "commits", "compare"}
 
 	for _, key := range urlTypes {
 		if arguments[key] == true {

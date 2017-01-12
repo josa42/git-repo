@@ -1,10 +1,10 @@
-hash: a8c406dcd095f3f626da3ff18d4ba2ad6febfd3708854f306cae10e2f5feeb62
-updated: 2017-01-10T14:06:12.061584569+01:00
+hash: a71594c447490879070255dbce18a3f61b425e0862ffdd5bc3db798ea239cf49
+updated: 2017-01-12T16:50:35.209110439+01:00
 imports:
 - name: github.com/docopt/docopt-go
   version: 784ddc588536785e7299f7272f39101f7faccc3f
 - name: github.com/josa42/go-gitutils
-  version: f6278dd42c3d5216358d5e497ffe49b6e98ca6be
+  version: 4e612294854017366578ec845b1b6992dd3dffb0
 - name: github.com/josa42/go-stringutils
   version: e129a8b9917f96ed0f632e9c523c068e9d78c486
 - name: github.com/skratchdot/open-golang

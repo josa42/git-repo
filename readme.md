@@ -25,6 +25,8 @@ Usage:
   git-repo commits
   git-repo issues
   git-repo prs
+  git-repo pr
+  git-repo compare <older-revision> [<newer-revision>]
 
 Options:
   -h --help          Show this screen.

@@ -57,6 +57,8 @@ func (repo *Repo) URL(urlType string, arguments map[string]interface{}) string {
 			return base + "/issues"
 		case "prs":
 			return base + "/pulls"
+		case "pr":
+			return base + "/compare/" + git.CurrentBranch() + "?expand=1"
 		case "commits":
 			return base + "/commits"
 		case "compare":
@@ -73,6 +75,8 @@ func (repo *Repo) URL(urlType string, arguments map[string]interface{}) string {
 			return base + "/issues?status=new&status=open"
 		case "prs":
 			return base + "/pull-requests/"
+		case "pr":
+			return base + "/pull-requests/new?source=" + git.CurrentBranch()
 		case "commits":
 			return base + "/commits/all"
 		case "compare":
