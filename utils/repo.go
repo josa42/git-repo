@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"regexp"
 
 	git "github.com/josa42/go-gitutils"
@@ -30,8 +29,6 @@ func GetRepo() Repo {
 
 	remotes := git.Remotes()
 	remote := remotes["origin"]
-
-	fmt.Println(remote)
 
 	if remote.Name != "" {
 
