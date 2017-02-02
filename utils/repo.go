@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"regexp"
 
 	git "github.com/josa42/go-gitutils"
@@ -18,6 +19,8 @@ var hosterExps = []string{
 	`^https://(github).com/([^/]+)/([^/]+).git`,
 	`^git@(bitbucket).org:([^/]+)/([^/]+).git$`,
 	`^https://([a-zA-Z0-9]+)@(bitbucket).org/([^/]+)/([^/]+).git`,
+	`git@(gitlab).com:([^/]+)/([^/]+).git`,
+	`https://(gitlab).com/([^/]+)/([^/]+).git`,
 }
 
 // GetRepo :
@@ -27,6 +30,8 @@ func GetRepo() Repo {
 
 	remotes := git.Remotes()
 	remote := remotes["origin"]
+
+	fmt.Println(remote)
 
 	if remote.Name != "" {
 
@@ -82,6 +87,24 @@ func (repo *Repo) URL(urlType string, arguments map[string]interface{}) string {
 		case "compare":
 			revA, revB := compareRevisions(arguments)
 			return base + "/branches/compare/" + revB + ".." + revA + "#diff"
+		case "home":
+			return base
+		}
+
+	case "gitlab":
+		base := "https://gitlab.com/" + repo.owner + "/" + repo.name
+		switch urlType {
+		case "issues":
+			return base + "/issues"
+		case "prs":
+			return base + "/pull-requests/"
+		case "pr":
+			return base + "/merge_requests"
+		case "commits":
+			return base + "/commits/" + git.CurrentBranch()
+		case "compare":
+			revA, revB := compareRevisions(arguments)
+			return base + "/branches/compare/" + revA + "..." + revB + "#diff"
 		case "home":
 			return base
 		}
