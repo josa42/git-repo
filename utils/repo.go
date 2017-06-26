@@ -54,6 +54,10 @@ func GetRepo() Repo {
 // URL :
 func (repo *Repo) URL(urlType string, arguments map[string]interface{}) string {
 
+	if urlType == "ci" {
+		return ciURL(repo, arguments)
+	}
+
 	switch repo.hoster {
 	case "github":
 		base := "https://github.com/" + repo.owner + "/" + repo.name
@@ -71,8 +75,6 @@ func (repo *Repo) URL(urlType string, arguments map[string]interface{}) string {
 			return base + "/compare/" + revA + "..." + revB
 		case "home":
 			return base
-		case "ci":
-			return ciURL(repo, arguments)
 		}
 
 	case "bitbucket":
@@ -129,7 +131,7 @@ func compareRevisions(arguments map[string]interface{}) (string, string) {
 
 func getCiType(repo *Repo, arguments map[string]interface{}) string {
 	ciType := ""
-	ciTypes := []string{"travis", "appveyor", "circle", "jenkins"}
+	ciTypes := []string{"appveyor", "bitbucket", "circle", "gitlab", "jenkins", "travis"}
 
 	for _, key := range ciTypes {
 		if arguments["--"+key] == true {
