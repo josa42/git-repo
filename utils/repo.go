@@ -1,6 +1,9 @@
 package utils
 
 import (
+	"fmt"
+	"os"
+	"path"
 	"regexp"
 
 	git "github.com/josa42/go-gitutils"
@@ -68,6 +71,8 @@ func (repo *Repo) URL(urlType string, arguments map[string]interface{}) string {
 			return base + "/compare/" + revA + "..." + revB
 		case "home":
 			return base
+		case "ci":
+			return ciURL(repo, arguments)
 		}
 
 	case "bitbucket":
@@ -120,4 +125,103 @@ func compareRevisions(arguments map[string]interface{}) (string, string) {
 	}
 
 	return revA.(string), revB.(string)
+}
+
+func getCiType(repo *Repo, arguments map[string]interface{}) string {
+	ciType := ""
+	ciTypes := []string{"travis", "appveyor", "circle", "jenkins"}
+
+	for _, key := range ciTypes {
+		if arguments["--"+key] == true {
+			ciType = key
+		}
+	}
+
+	if ciType == "" {
+		ciType = detectCiType(repo, arguments)
+	}
+
+	switch ciType {
+	case "travis", "appveyor", "circle":
+		if repo.hoster != "github" {
+			return ""
+		}
+	case "gitlab", "bitbucket":
+		if repo.hoster != ciType {
+			return ""
+		}
+	}
+
+	return ciType
+}
+
+func detectCiType(repo *Repo, arguments map[string]interface{}) string {
+	jenkinsURL, _ := git.Exec("config", "--get", "git-repo.jenkins-url")
+	if jenkinsURL != "" {
+		return "jenkins"
+	}
+
+	switch repo.hoster {
+	case "github":
+		switch findFileConfigFile() {
+		case ".travis.yml":
+			return "travis"
+		case "appveyor.yml":
+			return "appveyor"
+		case "circle.yml":
+			return "circle"
+		}
+	}
+	return ""
+}
+
+func ciURL(repo *Repo, arguments map[string]interface{}) string {
+
+	switch getCiType(repo, arguments) {
+	case "travis":
+		return "https://travis-ci.org/" + repo.owner + "/" + repo.name
+	case "appveyor":
+		return "https://ci.appveyor.com/project/" + repo.owner + "/" + repo.name
+	case "circle":
+		return "https://circleci.com/gh/" + repo.owner + "/" + repo.name
+	case "gitlab":
+		return "https://gitlab.com/" + repo.owner + "/" + repo.name + "/pipelines"
+	case "bitbucket":
+		return "https://bitbucket.org/" + repo.owner + "/" + repo.name + "/addon/pipelines/home"
+	case "jenkins":
+		url, _ := git.Exec("config", "--get", "git-repo.jenkins-url")
+		if url == "" {
+			fmt.Println("Error: Add jenkins project url:\n> git config --add http://jenkins.example.org/job/example-job/")
+			return ""
+		}
+		return url
+	}
+
+	return ""
+}
+
+func findFileConfigFile() string {
+
+	filePaths := []string{
+		".travis.yml",
+		"appveyor.yml",
+		"circle.yml",
+	}
+
+	for _, filePath := range filePaths {
+		if fileExists(filePath) {
+			return filePath
+		}
+	}
+
+	return ""
+}
+
+func fileExists(filePath string) bool {
+	rootPath, _ := git.Exec("rev-parse", "--show-toplevel")
+	if rootPath == "" {
+		return false
+	}
+	_, err := os.Stat(path.Join(rootPath, filePath))
+	return os.IsNotExist(err) != true
 }

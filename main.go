@@ -23,6 +23,7 @@ func main() {
 		  git-repo prs
 		  git-repo pr
 		  git-repo compare <older-revision> [<newer-revision>]
+		  git-repo ci [--appveyor][--bitbucket][--circle][--gitlab][--jenkins][--travis]
 
 		Options:
 		  -h --help          Show this screen.
@@ -34,7 +35,7 @@ func main() {
 	repo := utils.GetRepo()
 
 	urlType := ""
-	urlTypes := []string{"home", "issues", "prs", "pr", "commits", "compare"}
+	urlTypes := []string{"home", "issues", "prs", "pr", "commits", "compare", "ci"}
 
 	for _, key := range urlTypes {
 		if arguments[key] == true {
