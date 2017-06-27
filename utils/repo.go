@@ -17,12 +17,12 @@ type Repo struct {
 }
 
 var hosterExps = []string{
-	`^git@(github).com:([^/]+)/([^/]+).git$`,
-	`^https://(github).com/([^/]+)/([^/]+).git`,
-	`^git@(bitbucket).org:([^/]+)/([^/]+).git$`,
-	`^https://([a-zA-Z0-9]+)@(bitbucket).org/([^/]+)/([^/]+).git`,
-	`git@(gitlab).com:([^/]+)/([^/]+).git`,
-	`https://(gitlab).com/([^/]+)/([^/]+).git`,
+	`^git@(github).com:([^/]+)/([^/]+)(\.git)?$`,
+	`^https://(github)\.com/([^/]+)/([^/]+)(\.git)?$`,
+	`^git@(bitbucket)\.org:([^/]+)/([^/]+)(\.git)?$`,
+	`^https://([a-zA-Z0-9]+)@(bitbucket).org/([^/]+)/([^/]+)(\.git)?$`,
+	`^git@(gitlab).com:([^/]+)/([^/]+)(\.git)?$`,
+	`^https://(gitlab).com/([^/]+)/([^/]+)(\.git)?$`,
 }
 
 // GetRepo :
