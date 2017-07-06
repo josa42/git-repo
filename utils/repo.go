@@ -164,6 +164,11 @@ func detectCiType(repo *Repo, arguments map[string]interface{}) string {
 	}
 
 	switch repo.hoster {
+	case "bitbucket":
+		switch findFileConfigFile() {
+		case "bitbucket-pipelines.yml":
+			return "bitbucket"
+		}
 	case "github":
 		switch findFileConfigFile() {
 		case ".travis.yml":
@@ -214,7 +219,9 @@ func findFileConfigFile() string {
 	}
 
 	for _, filePath := range filePaths {
+		fmt.Println(filePath)
 		if fileExists(filePath) {
+			fmt.Println("Exists!")
 			return filePath
 		}
 	}
