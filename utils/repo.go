@@ -172,6 +172,8 @@ func detectCiType(repo *Repo, arguments map[string]interface{}) string {
 			return "appveyor"
 		case "circle.yml":
 			return "circle"
+		case "bitbucket-pipelines.yml":
+			return "bitbucket"
 		}
 	}
 	return ""
@@ -206,6 +208,7 @@ func findFileConfigFile() string {
 
 	filePaths := []string{
 		".travis.yml",
+		"bitbucket-pipelines.yml",
 		"appveyor.yml",
 		"circle.yml",
 	}
