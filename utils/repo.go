@@ -219,9 +219,7 @@ func findFileConfigFile() string {
 	}
 
 	for _, filePath := range filePaths {
-		fmt.Println(filePath)
 		if fileExists(filePath) {
-			fmt.Println("Exists!")
 			return filePath
 		}
 	}
