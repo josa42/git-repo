@@ -30,7 +30,7 @@ func main() {
 		  --version          Show version.
   `)
 
-	arguments, _ := docopt.Parse(usage, nil, true, "Git Release 0.3.0", false)
+	arguments, _ := docopt.Parse(usage, nil, true, "Git Release 0.5.5", false)
 
 	repo := utils.GetRepo()
 
