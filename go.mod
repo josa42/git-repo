@@ -7,4 +7,5 @@ require (
 	github.com/josa42/go-gitutils v0.0.0-20170112123429-4e6122948540
 	github.com/josa42/go-stringutils v0.0.0-20170110101904-e129a8b9917f
 	github.com/skratchdot/open-golang v0.0.0-20160302144031-75fb7ed4208c
+	github.com/stretchr/testify v1.3.0
 )

@@ -17,33 +17,34 @@ type Repo struct {
 }
 
 var hosterExps = []string{
-	`^git@(github).com:([^/]+)/([^/]+)\.git$`,
-	`^git@(github).com:([^/]+)/([^/]+)$`,
-	`^https://(github)\.com/([^/]+)/([^/]+)\.git$`,
-	`^https://(github)\.com/([^/]+)/([^/]+)$`,
-	`^git@(bitbucket)\.org:([^/]+)/([^/]+)\.git$`,
-	`^git@(bitbucket)\.org:([^/]+)/([^/]+)$`,
-	`^https://([a-zA-Z0-9]+)@(bitbucket).org/([^/]+)/([^/]+)\.git$`,
-	`^https://([a-zA-Z0-9]+)@(bitbucket).org/([^/]+)/([^/]+)$`,
-	`^git@(gitlab).com:([^/]+)/([^/]+)\.git$`,
-	`^git@(gitlab).com:([^/]+)/([^/]+)$`,
-	`^https://(gitlab).com/([^/]+)/([^/]+)\.git$`,
-	`^https://(gitlab).com/([^/]+)/([^/]+)$`,
+	`^git@(github).com:([^/]+)/([^/.]+)(\.git)?$`,
+	`^https://(github)\.com/([^/]+)/([^/.]+)(\.git)?$`,
+	`ssh://git@(bitbucket).org/([^/.]+)/([^/.]+)(\.git)?`,
+	`^git@(bitbucket)\.org:([^/]+)/([^/.]+)(\.git)?$`,
+	`^https://[a-zA-Z0-9]+@(bitbucket).org/([^/]+)/([^/.]+)(\.git)?$`,
+	`^git@(gitlab).com:([^/]+)/([^/.]+)(\.git)?$`,
+	`^https://(gitlab).com/([^/]+)/([^/.]+)(\.git)?$`,
 }
 
 // GetRepo :
 func GetRepo() Repo {
-
-	repo := Repo{}
-
 	remotes := git.Remotes()
 	remote := remotes["origin"]
 
 	if remote.Name != "" {
+		return getRepoFromRemote(remote.Fetch)
+	}
 
+	return Repo{}
+}
+
+func getRepoFromRemote(remote string) Repo {
+	repo := Repo{}
+
+	if remote != "" {
 		for _, exp := range hosterExps {
 			re, _ := regexp.Compile(exp)
-			result := re.FindStringSubmatch(remote.Fetch)
+			result := re.FindStringSubmatch(remote)
 			if result != nil {
 				repo.hoster = result[1]
 				repo.owner = result[2]
@@ -55,6 +56,7 @@ func GetRepo() Repo {
 	}
 
 	return repo
+
 }
 
 // URL :
