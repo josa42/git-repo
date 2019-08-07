@@ -1,0 +1,7 @@
+github.com/docopt/docopt-go v0.0.0-20160216232012-784ddc588536 h1:rHnpq7uNlix5l7tWZ55iJcHHrxCPnOVF4FGb7qOT2Jc=
+github.com/docopt/docopt-go v0.0.0-20160216232012-784ddc588536/go.mod h1:WwZ+bS3ebgob9U8Nd0kOddGdZWjyMGR8Wziv+TBNwSE=
+github.com/josa42/go-gitutils v0.0.0-20170112123429-4e6122948540 h1:cuzDLsQ3Q/G5sQMktEwQq1T7HZa12gvSGco7KXuTxQA=
+github.com/josa42/go-gitutils v0.0.0-20170112123429-4e6122948540/go.mod h1:xXiFkUf/B2ekRJ8fv4BVjY/Tf/D2gERlHWDo+YkP7yo=
+github.com/josa42/go-stringutils v0.0.0-20170110101904-e129a8b9917f/go.mod h1:3bP4qKlpCFsamwnOCNsQ4fdfGIigLWZU4Xwf6Rw+MsY=
+github.com/skratchdot/open-golang v0.0.0-20160302144031-75fb7ed4208c h1:fyKiXKO1/I/B6Y2U8T7WdQGWzwehOuGIrljPtt7YTTI=
+github.com/skratchdot/open-golang v0.0.0-20160302144031-75fb7ed4208c/go.mod h1:sUM3LWHvSMaG192sy56D9F7CNvL7jUJVXoqM1QKLnog=
