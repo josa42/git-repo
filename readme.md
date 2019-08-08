@@ -1,7 +1,5 @@
 # git-repo
 
-**Work in progress**
-
 ## Installation
 
 **Homebrew (macOS)**
