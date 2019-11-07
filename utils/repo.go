@@ -185,7 +185,7 @@ func detectCiType(repo *Repo, arguments map[string]interface{}) string {
 			return "appveyor"
 		case "circle.yml":
 			return "circle"
-		case ".github/actions":
+		case ".github/workflows":
 			return "github"
 		}
 	}
