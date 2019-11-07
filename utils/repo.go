@@ -139,7 +139,7 @@ func compareRevisions(arguments map[string]interface{}) (string, string) {
 
 func getCiType(repo *Repo, arguments map[string]interface{}) string {
 	ciType := ""
-	ciTypes := []string{"appveyor", "bitbucket", "circle", "gitlab", "jenkins", "travis"}
+	ciTypes := []string{"appveyor", "bitbucket", "circle", "gitlab", "jenkins", "travis", "github"}
 
 	for _, key := range ciTypes {
 		if arguments["--"+key] == true {
@@ -185,8 +185,8 @@ func detectCiType(repo *Repo, arguments map[string]interface{}) string {
 			return "appveyor"
 		case "circle.yml":
 			return "circle"
-		case "bitbucket-pipelines.yml":
-			return "bitbucket"
+		case ".github/actions":
+			return "github"
 		}
 	}
 	return ""
@@ -212,6 +212,8 @@ func ciURL(repo *Repo, arguments map[string]interface{}) string {
 			return ""
 		}
 		return url
+	case "github":
+		return "https://github.com/" + repo.owner + "/" + repo.name + "/actions"
 	}
 
 	return ""
@@ -224,6 +226,7 @@ func findFileConfigFile() string {
 		"bitbucket-pipelines.yml",
 		"appveyor.yml",
 		"circle.yml",
+		".github/workflows",
 	}
 
 	for _, filePath := range filePaths {

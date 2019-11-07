@@ -23,7 +23,7 @@ func main() {
 		  git-repo prs
 		  git-repo pr
 		  git-repo compare <older-revision> [<newer-revision>]
-		  git-repo ci [--appveyor][--bitbucket][--circle][--gitlab][--jenkins][--travis]
+		  git-repo ci [--appveyor][--bitbucket][--circle][--github][--gitlab][--jenkins][--travis]
 
 		Options:
 		  -h --help          Show this screen.
