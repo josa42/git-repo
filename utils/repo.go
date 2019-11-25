@@ -7,6 +7,7 @@ import (
 	"regexp"
 
 	git "github.com/josa42/go-gitutils"
+	"github.com/skratchdot/open-golang/open"
 )
 
 // Repo :
@@ -36,6 +37,13 @@ func GetRepo() Repo {
 	}
 
 	return Repo{}
+}
+
+func (repo Repo) Open(urlType string, arguments map[string]interface{}) {
+	url := repo.URL(urlType, arguments)
+	if url != "" {
+		open.Run(url)
+	}
 }
 
 func getRepoFromRemote(remote string) Repo {
