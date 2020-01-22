@@ -18,13 +18,20 @@ type Repo struct {
 }
 
 var hosterExps = []string{
-	`^git@(github).com:([^/]+)/([^/.]+)(\.git)?$`,
-	`^https://(github)\.com/([^/]+)/([^/.]+)(\.git)?$`,
-	`ssh://git@(bitbucket).org/([^/.]+)/([^/.]+)(\.git)?`,
-	`^git@(bitbucket)\.org:([^/]+)/([^/.]+)(\.git)?$`,
-	`^https://[a-zA-Z0-9]+@(bitbucket).org/([^/]+)/([^/.]+)(\.git)?$`,
-	`^git@(gitlab).com:([^/]+)/([^/.]+)(\.git)?$`,
-	`^https://(gitlab).com/([^/]+)/([^/.]+)(\.git)?$`,
+	`^git@(github).com:([^/]+)/([^/]+)\.git$`,
+	`^git@(github).com:([^/]+)/([^/]+)$`,
+	`^https://(github)\.com/([^/]+)/([^/]+)\.git$`,
+	`^https://(github)\.com/([^/]+)/([^/]+)$`,
+	`ssh://git@(bitbucket).org/([^/.]+)/([^/]+)\.git$`,
+	`ssh://git@(bitbucket).org/([^/.]+)/([^/]+)$`,
+	`^git@(bitbucket)\.org:([^/]+)/([^/]+)\.git$`,
+	`^git@(bitbucket)\.org:([^/]+)/([^/]+)$`,
+	`^https://[a-zA-Z0-9]+@(bitbucket).org/([^/]+)/([^/]+)\.git$`,
+	`^https://[a-zA-Z0-9]+@(bitbucket).org/([^/]+)/([^/]+)$`,
+	`^git@(gitlab).com:([^/]+)/([^/]+)\.git$`,
+	`^git@(gitlab).com:([^/]+)/([^/]+)$`,
+	`^https://(gitlab).com/([^/]+)/([^/]+)\.git$`,
+	`^https://(gitlab).com/([^/]+)/([^/]+)$`,
 }
 
 // GetRepo :

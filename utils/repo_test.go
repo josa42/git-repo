@@ -41,6 +41,15 @@ func TestGetRepoFromRemote_sshGithub_git(t *testing.T) {
 	assert.Equal(t, "git-repo", r.name)
 }
 
+//
+func TestGetRepoFromRemote_sshGithubWithDots_git(t *testing.T) {
+	r := getRepoFromRemote("git@github.com:josa42/josa42.github.io.git")
+
+	assert.Equal(t, "github", r.hoster)
+	assert.Equal(t, "josa42", r.owner)
+	assert.Equal(t, "josa42.github.io", r.name)
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // bitbucket
 
