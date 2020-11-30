@@ -97,6 +97,10 @@ github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANyt
 github.com/jonboulle/clockwork v0.1.0/go.mod h1:Ii8DK3G1RaLaWxj9trq07+26W01tbo22gdxWY5EU2bo=
 github.com/josa42/go-gitutils v0.0.0-20170116135955-58ef480c7753 h1:6uhFjyyBYhykxUu3fQdnm3fJ7nh2Gmc2wFwlLB7T9NI=
 github.com/josa42/go-gitutils v0.0.0-20170116135955-58ef480c7753/go.mod h1:xXiFkUf/B2ekRJ8fv4BVjY/Tf/D2gERlHWDo+YkP7yo=
+github.com/josa42/go-gitutils v0.0.0-20201130195034-165f0fb7affc h1:H7kQhcF3gZzrRjFz6eVmLu4m/OA5Up833RApyiBRtYc=
+github.com/josa42/go-gitutils v0.0.0-20201130195034-165f0fb7affc/go.mod h1:dOJ6vNzs+i5J3AsxQxomu74EC/VDs2voexU8hqJCqK4=
+github.com/josa42/go-gitutils v0.5.0 h1:MfNHH4SJePJRLvzCsaLmTIsG3Jdru6AWXNrvwGD8FCM=
+github.com/josa42/go-gitutils v0.5.0/go.mod h1:dOJ6vNzs+i5J3AsxQxomu74EC/VDs2voexU8hqJCqK4=
 github.com/json-iterator/go v1.1.6/go.mod h1:+SdeFBvtyEkXs7REEP0seUULqWtbJapLOCVDaaPEHmU=
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
 github.com/jtolds/gls v4.20.0+incompatible/go.mod h1:QJZ7F/aHp+rZTRtaJ1ow/lLfFfVYBRgL+9YlvaHOwJU=

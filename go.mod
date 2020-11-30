@@ -3,7 +3,7 @@ module github.com/josa42/git-repo
 go 1.12
 
 require (
-	github.com/josa42/go-gitutils v0.0.0-20170116135955-58ef480c7753
+	github.com/josa42/go-gitutils v0.5.0
 	github.com/kr/text v0.2.0 // indirect
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.1.1

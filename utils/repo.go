@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path"
@@ -37,10 +38,25 @@ var hosterExps = []string{
 // GetRepo :
 func GetRepo() Repo {
 	remotes := git.Remotes()
-	remote := remotes["origin"]
 
-	if remote.Name != "" {
-		return getRepoFromRemote(remote.Fetch)
+	// TODO allow specifying a remote --remote=upstream
+
+	// first try origin remote or upstream
+	prefered := []string{"origin", "upstream"}
+
+	for _, name := range prefered {
+		if remote, ok := remotes[name]; ok {
+			if repo, err := getRepoFromRemote(remote.Fetch); err == nil {
+				return repo
+			}
+		}
+	}
+
+	// try any other remote
+	for _, remote := range remotes {
+		if repo, err := getRepoFromRemote(remote.Fetch); err == nil {
+			return repo
+		}
 	}
 
 	return Repo{}
@@ -50,10 +66,12 @@ func (repo Repo) Open(urlType string, arguments map[string]interface{}) {
 	url := repo.URL(urlType, arguments)
 	if url != "" {
 		open.Run(url)
+	} else {
+		fmt.Println("error: Could not match remote")
 	}
 }
 
-func getRepoFromRemote(remote string) Repo {
+func getRepoFromRemote(remote string) (Repo, error) {
 	repo := Repo{}
 
 	if remote != "" {
@@ -65,12 +83,12 @@ func getRepoFromRemote(remote string) Repo {
 				repo.owner = result[2]
 				repo.name = result[3]
 
-				return repo
+				return repo, nil
 			}
 		}
 	}
 
-	return repo
+	return repo, errors.New("not found")
 
 }
 
