@@ -9,7 +9,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:     "git-repo",
-	Version: "0.7.0",
+	Version: "v0.7.1",
 }
 
 func Execute() {
